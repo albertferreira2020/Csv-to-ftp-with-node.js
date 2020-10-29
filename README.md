@@ -4,17 +4,17 @@ This app is node file for create a csv file from database sqlserver and send to 
 this project has the frameworks json2csv, ftp-client, mssql and fs native.
 
 ##
-var json2csv = require('json2csv');
-var ftpClient = require('ftp-client');
-var fs = require('fs');
-var sql = require("mssql");
+var json2csv = require('json2csv'); <br>
+var ftpClient = require('ftp-client'); <br>
+var fs = require('fs'); <br>
+var sql = require("mssql");<br><br>
 
-///file configuration database and Ftp
-var fileconfig = require("./config.js");
-var dbconfig = fileconfig.dbconfig 
-var configftp = fileconfig.configftp
-var options = fileconfig.configftp.options
-client = new ftpClient(configftp, options);
+///file configuration database and Ftp<br>
+var fileconfig = require("./config.js");<br>
+var dbconfig = fileconfig.dbconfig <br>
+var configftp = fileconfig.configftp<br>
+var options = fileconfig.configftp.options<br>
+client = new ftpClient(configftp, options);<br><br><br>
 
 
 //connect database
