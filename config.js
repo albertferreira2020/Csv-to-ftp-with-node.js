@@ -7,7 +7,7 @@ module.exports = {
     password: "sa",
     options: {
         port: 1433,//49161,
-        database: 'CLIENTE',
+        database: 'YOURTABLE',
         connectionTimeout : 150000,
         //instancename: 'SQLEXPRESS'
       }
@@ -18,10 +18,10 @@ module.exports = {
 
 //conect ftp
 configftp: {
-    host: 'ftpconvenio.fidelize.com.br',
+    host: 'ftp.yourhost.com',
     port: 21,
-    user: 'ftp_unimed_curvelo',
-    password: 'KZQiBTFV'
+    user: 'user',
+    password: 'passwd'
 },
 options :{
     logging: 'basic'
