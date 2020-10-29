@@ -1,3 +1,5 @@
+# app node.js to send csv files by ftp protocol
+
 ## csv-to-ftp
 
 This app is node file for create a csv file from database Microsoft Sql Server and posteriorly send to ftp. Also you can send to email using framework nodemailer.
