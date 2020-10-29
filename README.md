@@ -17,58 +17,58 @@ var options = fileconfig.configftp.options<br>
 client = new ftpClient(configftp, options);<br><br><br>
 
 
-//connect database
-function select(){
-var conn = new sql.Connection(dbconfig);
-conn.connect().then(function(){
-var rs = new sql.Request(conn);
-var sqlselect = "SELECT * FROM YOURTABLE"
-rs.query(sqlselect).then(function(recordset){
-//    console.log(recordset);
+//connect database<br>
+function select(){<br>
+var conn = new sql.Connection(dbconfig);<br>
+conn.connect().then(function(){<br>
+var rs = new sql.Request(conn);<br>
+var sqlselect = "SELECT * FROM YOURTABLE"<br>
+rs.query(sqlselect).then(function(recordset){<br>
+//    console.log(recordset);<br><br>
 
-var day = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-var today = day.split("-", 3);
-var daymonth = today[2].split(" ")
-today = daymonth[0] + today[1] + today[0]
+var day = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')<br>
+var today = day.split("-", 3);<br>
+var daymonth = today[2].split(" ")<br>
+today = daymonth[0] + today[1] + today[0]<br><br>
 
     
-var opts = {
-    data: recordset, //fonte dos dados para exportar
-    wrap  : '',
-    doubleQuotes:'', //elimina aspas duplas se houver
-    quotes:'', //elimina aspas duplas por padrão
-    del:';', //determina o separador
-    hasCSVColumnTitle:false, //determina se mostra os campos ou não
-};
-var csv = json2csv(opts);
-var filename = 'YOURFILE_' + today + '.csv' 
+var opts = {<br>
+    data: recordset, //get jsondata<br>
+    wrap  : '',<br>
+    doubleQuotes:'', //delete quotation marks<br>
+    quotes:'', //delete double quotes<br>
+    del:';', //define the separator<br>
+    hasCSVColumnTitle:false, //show or hiden columns<br>
+};<br>
+var csv = json2csv(opts);<br>
+var filename = 'YOURFILE_' + today + '.csv' <br>
     
                         
-fs.writeFile('files/' + filename, csv, function(err) {
-    if (err) {
-        res.status(501).send(err);
-    } else {
-        client.connect(function () {
-            client.upload(['files/' + filename], '/envio/', {
-                baseDir: 'files',
-                overwrite: 'none'   //all none ou older
-            }, function (result) {
-                console.log(result);
-            });
+fs.writeFile('files/' + filename, csv, function(err) {<br>
+    if (err) {<br>
+        res.status(501).send(err);<br>
+    } else {<br>
+        client.connect(function () {<br>
+            client.upload(['files/' + filename], '/envio/', {<br>
+                baseDir: 'files',<br>
+                overwrite: 'none'   //all none ou older<br>
+            }, function (result) {<br>
+                console.log(result);<br>
+            });<br>
 
-        });     
-    }
-});
+        });<br>     
+    }<br>
+});<br>
 
 
-    conn.close();
-})
-.catch(function(err){
-    console.log(err);
-    conn.close();
-})
-})
-}
+    conn.close();<br>
+})<br>
+.catch(function(err){<br>
+    console.log(err);<br>
+    conn.close();<br>
+})<br>
+})<br>
+}<br><br>
 
-select();
+select();<br>
 
