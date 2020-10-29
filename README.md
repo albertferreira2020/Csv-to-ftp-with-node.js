@@ -55,12 +55,9 @@ fs.writeFile('files/' + filename, csv, function(err) {<br>
             }, function (result) {<br>
                 console.log(result);<br>
             });<br>
-
-        });<br>     
+        }); <br>   
     }<br>
 });<br>
-
-
     conn.close();<br>
 })<br>
 .catch(function(err){<br>
