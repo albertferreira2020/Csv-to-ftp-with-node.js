@@ -7,70 +7,71 @@ This project has the frameworks json2csv, ftp-client, mssql and fs native.
 
 ##
 
-```
-var json2csv = require('json2csv'); <br>
-var ftpClient = require('ftp-client'); <br>
-var fs = require('fs'); <br>
-var sql = require("mssql");<br><br>
+```javascript
+var json2csv = require('json2csv');
+var ftpClient = require('ftp-client');
+var fs = require('fs');
+var sql = require("mssql");
 
-///file configuration database and Ftp<br>
-var fileconfig = require("./config.js");<br>
-var dbconfig = fileconfig.dbconfig <br>
-var configftp = fileconfig.configftp<br>
-var options = fileconfig.configftp.options<br>
-client = new ftpClient(configftp, options);<br><br><br>
+///file configuration database and Ftp
+var fileconfig = require("./config.js");
+var dbconfig = fileconfig.dbconfig
+var configftp = fileconfig.configftp
+var options = fileconfig.configftp.options
+client = new ftpClient(configftp, options);
 
 
-//connect database<br>
-function select(){<br>
-var conn = new sql.Connection(dbconfig);<br>
-conn.connect().then(function(){<br>
-var rs = new sql.Request(conn);<br>
-var sqlselect = "SELECT * FROM YOURTABLE"<br>
-rs.query(sqlselect).then(function(recordset){<br>
-//    console.log(recordset);<br><br>
+//connect database
+function select(){
+var conn = new sql.Connection(dbconfig);
+conn.connect().then(function(){
+var rs = new sql.Request(conn);
+var sqlselect = "SELECT * FROM YOURTABLE"
+rs.query(sqlselect).then(function(recordset){
+//    console.log(recordset);
 
-var day = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')<br>
-var today = day.split("-", 3);<br>
-var daymonth = today[2].split(" ")<br>
-today = daymonth[0] + today[1] + today[0]<br><br>
+var day = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+var today = day.split("-", 3);
+var daymonth = today[2].split(" ")
+today = daymonth[0] + today[1] + today[0]
 
     
-var opts = {<br>
-    data: recordset, //get jsondata<br>
-    wrap  : '',<br>
-    doubleQuotes:'', //delete quotation marks<br>
-    quotes:'', //delete double quotes<br>
-    del:';', //define the separator<br>
-    hasCSVColumnTitle:false, //show or hiden columns<br>
-};<br>
-var csv = json2csv(opts);<br>
-var filename = 'YOURFILE_' + today + '.csv' <br>
+var opts = {
+    data: recordset, //get jsondata
+    wrap  : '',
+    doubleQuotes:'', //delete quotation marks
+    quotes:'', //delete double quotes
+    del:';', //define the separator
+    hasCSVColumnTitle:false, //show or hiden columns
+};
+var csv = json2csv(opts);
+var filename = 'YOURFILE_' + today + '.csv'
     
                         
-fs.writeFile('files/' + filename, csv, function(err) {<br>
-    if (err) {<br>
-        res.status(501).send(err);<br>
-    } else {<br>
-        client.connect(function () {<br>
-            client.upload(['files/' + filename], '/envio/', {<br>
-                baseDir: 'files',<br>
-                overwrite: 'none'   //all none ou older<br>
-            }, function (result) {<br>
-                console.log(result);<br>
-            });<br>
-        }); <br>   
-    }<br>
-});<br>
-    conn.close();<br>
-})<br>
-.catch(function(err){<br>
-    console.log(err);<br>
-    conn.close();<br>
-})<br>
-})<br>
-}<br><br>
+fs.writeFile('files/' + filename, csv, function(err) {
+    if (err) {
+        res.status(501).send(err);
+    } else {
+        client.connect(function () {
+            client.upload(['files/' + filename], '/envio/', {
+                baseDir: 'files',
+                overwrite: 'none'   //all none ou older
+            }, function (result) {
+                console.log(result);
+            });
+        });   
+    }
+});
+    conn.close();
+})
+.catch(function(err){
+    console.log(err);
+    conn.close();
+})
+})
+}
 
-select();<br>
+select();
+
 
 ```
