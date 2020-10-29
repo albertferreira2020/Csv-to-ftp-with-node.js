@@ -2,9 +2,9 @@ module.exports = {
  
     dbconfig: {
 
-    server: "192.168.16.208",
-    user: "sa",
-    password: "sa",
+    server: "iphost",
+    user: "userdatabase",
+    password: "passwddatabase",
     options: {
         port: 1433,//49161,
         database: 'YOURTABLE',
